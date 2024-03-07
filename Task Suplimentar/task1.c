@@ -57,23 +57,18 @@
 
 
  int main() {
-     // Citirea datelor magazinului
      struct MagazinAutomobile magazin = citesteAutomobilMagazin();
 
-     // Afișarea datelor citite
      printf("Informatii initiale ale magazinului:\n");
      afiseazaAutomobilMagazin(magazin);
 
-     // Calcularea și afișarea mediei prețurilor
      float mediePreturi = calculeazaMediaPreturi(magazin);
      printf("Media preturilor este: %.2f\n", mediePreturi);
 
-     // Modificarea mărcii și afișarea noilor informații
      modificaMarca(&magazin, "MarcaNoua");
      printf("Informatii magazin dupa modificarea marcii:\n");
      afiseazaAutomobilMagazin(magazin);
 
-     // Eliberarea memoriei alocate
      free(magazin.marca);
      free(magazin.preturiModele);
 
