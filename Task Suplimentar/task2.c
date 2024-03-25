@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<malloc.h>
 
 struct MagazinAutomobile {
     int cod;
@@ -13,21 +12,28 @@ struct MagazinAutomobile {
 
 struct MagazinAutomobile citesteAutomobilMagazin() {
     struct MagazinAutomobile mag;
+    char buffer[100];
+
     printf("Introduceti codul magazinului: ");
-    scanf("%d", &mag.cod);
+    fgets(buffer, 100, stdin);
+    sscanf(buffer, "%d", &mag.cod);
 
     mag.marca = (char*)malloc(50 * sizeof(char));
     printf("Introduceti marca automobilului: ");
-    scanf("%s", mag.marca);
+    fgets(buffer, 100, stdin);
+    sscanf(buffer, "%49s", mag.marca);
 
     printf("Introduceti numarul de modele: ");
-    scanf("%d", &mag.nrModele);
+    fgets(buffer, 100, stdin);
+    sscanf(buffer, "%d", &mag.nrModele);
 
     mag.preturiModele = (float*)malloc(mag.nrModele * sizeof(float));
     for (int i = 0; i < mag.nrModele; i++) {
         printf("Introduceti pretul modelului %d: ", i + 1);
-        scanf("%f", &mag.preturiModele[i]);
+        fgets(buffer, 100, stdin);
+        sscanf(buffer, "%f", &mag.preturiModele[i]);
     }
+
     return mag;
 }
 
@@ -103,13 +109,14 @@ int main() {
     printf("Magazine filtrate:\n");
     afiseazaVector(magazineFiltrate, nouaDimensiune);
 
-    // Eliberarea memoriei
+    // Eliberarea memoriei pentru vectorul inițial
     for (int i = 0; i < nrAutomobile; i++) {
         free(magazine[i].marca);
         free(magazine[i].preturiModele);
     }
     free(magazine);
 
+    // Eliberarea memoriei pentru vectorul filtrat
     for (int i = 0; i < nouaDimensiune; i++) {
         free(magazineFiltrate[i].marca);
         free(magazineFiltrate[i].preturiModele);
